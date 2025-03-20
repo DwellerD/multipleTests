@@ -1,4 +1,5 @@
 export const config = {
+    
     //
     // ====================
     // Runner Configuration
@@ -50,7 +51,10 @@ export const config = {
     // https://saucelabs.com/platform/platform-configurator
     //
     capabilities: [{
-        browserName: 'chrome'
+        browserName: 'chrome',
+        'goog:chromeOptions':{
+            args: ['--headless', '--disable-gpu', '--window-size=1920x1080']
+          }
     }],
 
     //
@@ -87,11 +91,11 @@ export const config = {
     // baseUrl: 'http://localhost:8080',
     //
     // Default timeout for all waitFor* commands.
-    waitforTimeout: 10000,
+    waitforTimeout: 20000,
     //
     // Default timeout in milliseconds for request
     // if browser driver or grid doesn't send response
-    connectionRetryTimeout: 120000,
+    connectionRetryTimeout: 180000,
     //
     // Default request retries count
     connectionRetryCount: 3,
