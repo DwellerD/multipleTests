@@ -1,15 +1,10 @@
-import { expect } from '@wdio/globals'
-import LoginPage from '../pageobjects/login.page.js'
-import SecurePage from '../pageobjects/secure.page.js'
-
-describe('My Login application', () => {
-    it('should login with valid credentials', async () => {
-        await LoginPage.open()
-
-        await LoginPage.login('tomsmith', 'SuperSecretPassword!')
-        await expect(SecurePage.flashAlert).toBeExisting()
-        await expect(SecurePage.flashAlert).toHaveText(
-            expect.stringContaining('You logged into a secure area!'))
+describe('SauceDemo Login - standard_user', () => {
+    it('logs in with standard_user and secret_sauce', async () => {
+      await browser.url('https://www.saucedemo.com/')
+  
+      await $('#user-name').setValue('standard_user')
+      await $('#password').setValue('secret_sauce')
+      await $('#login-button').click()
     })
-})
-
+  })
+  
