@@ -1,4 +1,4 @@
-import Page from './page.js';
+import Page from './basepage.js';
 
 class LoginPage extends Page {
   get usernameInput() { return $('#user-name'); }
