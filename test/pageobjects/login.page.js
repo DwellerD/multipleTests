@@ -1,41 +1,21 @@
-import { $ } from '@wdio/globals'
 import Page from './page.js';
 
-/**
- * sub page containing specific selectors and methods for a specific page
- */
 class LoginPage extends Page {
-    /**
-     * define selectors using getter methods
-     */
-    get inputUsername () {
-        return $('#username');
-    }
+  get usernameInput() { return $('#user-name'); }
+  get passwordInput() { return $('#password'); }
+  get loginButton() { return $('#login-button'); }
+  get errorContainer() { return $('.error-message-container'); }
 
-    get inputPassword () {
-        return $('#password');
-    }
+  async login(username, password) {
+    await this.usernameInput.waitForDisplayed();
+    await this.usernameInput.setValue(username);
+    await this.passwordInput.setValue(password);
+    await this.loginButton.click();
+  }
 
-    get btnSubmit () {
-        return $('button[type="submit"]');
-    }
-
-    /**
-     * a method to encapsule automation code to interact with the page
-     * e.g. to login using username and password
-     */
-    async login (username, password) {
-        await this.inputUsername.setValue(username);
-        await this.inputPassword.setValue(password);
-        await this.btnSubmit.click();
-    }
-
-    /**
-     * overwrite specific options to adapt it to page object
-     */
-    open () {
-        return super.open('login');
-    }
+  async open() {
+    return super.open();
+  }
 }
 
 export default new LoginPage();
