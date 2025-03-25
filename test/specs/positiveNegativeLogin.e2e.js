@@ -1,27 +1,20 @@
-describe('SauceDemo Login - All Users', () => {
-  const users = [
-    'standard_user',
-    'locked_out_user',
-    'problem_user',
-    'performance_glitch_user',
-    'error_user',
-    'visual_user'
-  ];
+import LoginPage from '../pageobjects/SauceLogin.js';
+import SecurePage from '../pageobjects/SauceSecure.Page.js';
 
-  users.forEach((username) => {
-    it(`Positive login test for ${username}`, async () => {
-      await browser.url('https://www.saucedemo.com/');
-      await $('#user-name').setValue(username);
-      await $('#password').setValue('secret_sauce');
-      await $('#login-button').click();
-    });
+describe('SauceDemo Login Tests - All Users', () => {
+  beforeEach(async () => {
+    await browser.reloadSession();
+  });
 
-    it(`Negative login test for ${username} with wrong password`, async () => {
-      await browser.url('https://www.saucedemo.com/');
-      await $('#user-name').setValue(username);
-      await $('#password').setValue('wrong_password');
-      await $('#login-button').click();
-      await expect($('.error-message-container')).toBeDisplayed();
+  LoginPage.users.forEach(({ username, password, shouldPass }) => {
+    it(`Login test for ${username}`, async () => {
+      await LoginPage.login(username, password);
+
+      if (shouldPass) {
+        await expect(await SecurePage.isLoaded()).toBe(true);
+      } else {
+        await expect(await LoginPage.isErrorVisible()).toBe(true);
+      }
     });
   });
 });
