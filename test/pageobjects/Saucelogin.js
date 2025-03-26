@@ -2,22 +2,6 @@ import { $ } from '@wdio/globals';
 import Page from './basepage.js';
 
 class SauceLogin extends Page {
-  users = [
-    { username: 'standard_user', password: 'secret_sauce', shouldPass: true },
-    { username: 'locked_out_user', password: 'secret_sauce', shouldPass: false },
-    { username: 'problem_user', password: 'secret_sauce', shouldPass: true },
-    { username: 'performance_glitch_user', password: 'secret_sauce', shouldPass: true },
-    { username: 'error_user', password: 'secret_sauce', shouldPass: true },
-    { username: 'visual_user', password: 'secret_sauce', shouldPass: true },
-
-    { username: 'standard_user', password: 'wrong_password', shouldPass: false },
-    { username: 'locked_out_user', password: 'wrong_password', shouldPass: false },
-    { username: 'problem_user', password: 'wrong_password', shouldPass: false },
-    { username: 'performance_glitch_user', password: 'wrong_password', shouldPass: false },
-    { username: 'error_user', password: 'wrong_password', shouldPass: false },
-    { username: 'visual_user', password: 'wrong_password', shouldPass: false }
-  ];
-
   get usernameInput() { return $('#user-name'); }
   get passwordInput() { return $('#password'); }
   get loginButton() { return $('#login-button'); }
@@ -30,8 +14,12 @@ class SauceLogin extends Page {
     await this.loginButton.click();
   }
 
-  async isErrorVisible() {
-    return this.errorContainer.isDisplayed();
+  async assertErrorVisible() {
+    await expect(this.errorContainer).toBeDisplayed();
+  }
+
+  async assertLoginPageVisible() {
+    await expect(this.usernameInput).toBeDisplayed();
   }
 }
 
