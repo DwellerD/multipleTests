@@ -1,5 +1,5 @@
 import { $ } from '@wdio/globals';
-import Page from './basePage.js';
+import Page from './basepage.js';
 
 class SauceLogin extends Page {
   users = [
@@ -8,7 +8,14 @@ class SauceLogin extends Page {
     { username: 'problem_user', password: 'secret_sauce', shouldPass: true },
     { username: 'performance_glitch_user', password: 'secret_sauce', shouldPass: true },
     { username: 'error_user', password: 'secret_sauce', shouldPass: true },
-    { username: 'visual_user', password: 'secret_sauce', shouldPass: true }
+    { username: 'visual_user', password: 'secret_sauce', shouldPass: true },
+
+    { username: 'standard_user', password: 'wrong_password', shouldPass: false },
+    { username: 'locked_out_user', password: 'wrong_password', shouldPass: false },
+    { username: 'problem_user', password: 'wrong_password', shouldPass: false },
+    { username: 'performance_glitch_user', password: 'wrong_password', shouldPass: false },
+    { username: 'error_user', password: 'wrong_password', shouldPass: false },
+    { username: 'visual_user', password: 'wrong_password', shouldPass: false }
   ];
 
   get usernameInput() { return $('#user-name'); }

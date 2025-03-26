@@ -1,5 +1,5 @@
 import { $ } from '@wdio/globals';
-import Page from './basePage.js';
+import Page from './basepage.js';
 
 class SecurePage extends Page {
   get shoppingCartIcon() {

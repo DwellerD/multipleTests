@@ -1,4 +1,4 @@
-import LoginPage from '../pageobjects/SauceLogin.js';
+import LoginPage from '../pageobjects/Saucelogin.js';
 import SecurePage from '../pageobjects/SauceSecure.Page.js';
 
 describe('SauceDemo Login Tests - All Users', () => {
@@ -11,9 +11,9 @@ describe('SauceDemo Login Tests - All Users', () => {
       await LoginPage.login(username, password);
 
       if (shouldPass) {
-        await expect(await SecurePage.isLoaded()).toBe(true);
+        await expect(SecurePage.isLoaded()).resolves.toBe(true);
       } else {
-        await expect(await LoginPage.isErrorVisible()).toBe(true);
+        await expect(LoginPage.isErrorVisible()).resolves.toBe(true);
       }
     });
   });

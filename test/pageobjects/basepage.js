@@ -1,6 +1,5 @@
 export default class Page {
-    open(path = '') {
-      return browser.url(`/${path}`);
-    }
+  open() {
+    return browser.url('https://www.saucedemo.com');
   }
-  
+}
