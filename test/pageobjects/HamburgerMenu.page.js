@@ -1,4 +1,4 @@
-import { $ } from '@wdio/globals';
+import { $, expect } from '@wdio/globals';
 import Page from './basepage.js';
 
 class HamburgerMenu extends Page {
@@ -15,29 +15,20 @@ class HamburgerMenu extends Page {
     await this.menuButton.click();
   }
 
-  async closeMenu() {
-    await this.closeButton.waitForClickable();
-    await this.closeButton.click();
-  }
-
-  async isMenuOpen() {
-    return this.menuContainer.isDisplayed();
-  }
-
   async assertMenuOpen() {
     await expect(this.menuContainer).toBeDisplayed();
   }
 
-  async assertMenuClosed() {
-    await expect(this.menuContainer).not.toBeDisplayed();
-  }
-
   async goToInventory() {
     await this.inventoryLink.click();
+    const url = await browser.getUrl();
+    expect(url).toContain('inventory.html');
   }
 
   async goToAbout() {
     await this.aboutLink.click();
+    const url = await browser.getUrl();
+    expect(url).toContain('saucelabs.com');
   }
 
   async logout() {
@@ -46,6 +37,7 @@ class HamburgerMenu extends Page {
 
   async resetAppState() {
     await this.resetLink.click();
+    await this.assertMenuOpen();
   }
 }
 

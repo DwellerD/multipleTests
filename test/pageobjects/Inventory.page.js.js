@@ -1,7 +1,7 @@
 import { $ } from '@wdio/globals';
 import Page from './basepage.js';
 
-class SecurePage extends Page {
+class InventoryPage extends Page {
   get shoppingCartIcon() {
     return $('.shopping_cart_link');
   }
@@ -10,13 +10,12 @@ class SecurePage extends Page {
     return $('.app_logo');
   }
 
-  async isLoaded() {
+  async assertInventoryPageLoaded() {
     await this.shoppingCartIcon.waitForDisplayed({ timeout: 10000 });
     await this.appLogo.waitForDisplayed({ timeout: 10000 });
-
-    return (await this.shoppingCartIcon.isDisplayed()) &&
-           (await this.appLogo.isDisplayed());
+    await expect(this.shoppingCartIcon).toBeDisplayed();
+    await expect(this.appLogo).toBeDisplayed();
   }
 }
 
-export default new SecurePage();
+export default new InventoryPage();
